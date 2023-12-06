@@ -1,0 +1,102 @@
+Sure, let's walk through a dry run of the provided `myLU` function using the example input matrix `A`:
+
+```matlab
+A = [4, 3, 2;
+     8, 7, 6;
+     12, 11, 10];
+```
+
+Step 1 (Iteration 1 - k=1):
+- `k = 1`, so we are working on the first column of `U`.
+- Initially, `L` is an identity matrix and `U` is a copy of `A`.
+
+After the first iteration of the loop:
+- We call `elimMat(U, 1)` to calculate elimination matrices and multipliers for the first column of `U` to make it upper triangular.
+- The elimination matrices and multipliers, denoted as `temp_M` and `temp_L`, are calculated to eliminate values below the pivot element `U(1,1)`.
+
+```
+temp_M =
+     1     0     0
+    -2     1     0
+    -3     0     1
+
+temp_L =
+    1.0000         0         0
+    2.0000    1.0000         0
+    3.0000         0    1.0000
+```
+
+- We update `L` by multiplying it with `temp_L`, and `U` is updated by multiplying it with `temp_M`.
+
+After the first iteration:
+- `L` becomes `temp_L`, which is:
+```
+L =
+     1     0     0
+     2     1     0
+     3     0     1
+```
+
+- `U` becomes `temp_M * U`, which is:
+```
+U =
+     4     3     2
+     0     1     2
+     0     2     4
+```
+
+Step 2 (Iteration 2 - k=2):
+- In the second iteration, `k = 2`, so we are working on the second column of `U`.
+- We repeat the same process as in the first iteration.
+
+After the second iteration:
+- We calculate `temp_M` and `temp_L` for the second column of `U` to eliminate values below the pivot `U(2,2)`.
+
+```
+temp_M =
+     1     0
+     0     1
+
+temp_L =
+    1.0000         0
+         0    1.0000
+```
+
+- We update `L` and `U` as follows:
+  - `L` becomes the product of `L` and `temp_L`, which is unchanged.
+  - `U` becomes the product of `temp_M` and the current `U`.
+
+After the second iteration:
+- `L` remains the same:
+```
+L =
+     1     0     0
+     2     1     0
+     3     0     1
+```
+
+- `U` becomes:
+```
+U =
+     4     3     2
+     0     1     2
+     0     0     0
+```
+
+The loop terminates since `k` reaches the maximum value of `n-1`.
+
+At this point, `L` contains the lower triangular part of the LU decomposition, and `U` contains the upper triangular part. So, the LU decomposition of the input matrix `A` is:
+
+```
+L =
+     1     0     0
+     2     1     0
+     3     0     1
+
+U =
+     4     3     2
+     0     1     2
+     0     0     0
+```
+
+This demonstrates the LU decomposition of the input matrix `A` using the `myLU` function with two iterations of the loop.
